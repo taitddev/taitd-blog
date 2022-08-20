@@ -18,7 +18,7 @@ import {
 import Authentication from "./Authentication";
 import { Field } from "../components/field";
 import { Label } from "../components/label";
-import { Input, InputPasswordToggle } from "../components/input/Index";
+import { Input, InputPasswordToggle } from "../components/input";
 import { Button } from "../components/button";
 
 const schema = yup.object({
