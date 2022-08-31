@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import logo from "../assets/logo.svg";
+import Logo from "../components/logo/Logo";
 
 const AuthenticationStyles = styled.div`
   min-height: 100vh;
@@ -43,11 +44,10 @@ const Authentication = ({ children }) => {
             <img src={logo} alt="logo" />
           </NavLink>
         </div>
+        <div className="heading">
+          <Logo />
+        </div>
 
-        <h1 className="heading">
-          Taitd
-          <span className="text-secondary">.dev</span>
-        </h1>
         {children}
       </div>
     </AuthenticationStyles>

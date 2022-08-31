@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import slugify from "slugify";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 import { labelName, placeholder, errorMessage } from "../utils/constants";
 
@@ -27,6 +26,7 @@ const schema = yup.object({
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const {
     control,
@@ -38,7 +38,11 @@ const Login = () => {
     if (!isValid) return;
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}auth/login`, values);
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}auth/login`,
+        values
+      );
+      setUser(res.data.details);
       toast.success("Đăng nhập thành công!");
       navigate("/");
     } catch (error) {

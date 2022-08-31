@@ -11,6 +11,7 @@
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
     "axios": "^0.27.2",
+    "lodash": "^4.17.21",
     "node-sass": "^7.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
@@ -22,6 +23,7 @@
     "sass": "^1.54.5",
     "slugify": "^1.6.5",
     "styled-components": "^5.3.5",
+    "sweetalert2": "^11.4.28",
     "yup": "^0.32.11"
   },
   "devDependencies": {

@@ -50,6 +50,14 @@ export const userRole = {
   USER: 3,
 };
 
+export const path = {
+  LOGIN: "/login",
+  SIGNUP: "/signup",
+  DASHBOARD: "/dashboard",
+  CATEGORY_MANAGE: "/manage/category",
+  ADD_CATEGORY: "/manage/add-category",
+};
+
 export const errorMessage = {
   FULLNAME_REQUIRED: "Hãy nhập họ tên",
   EMAIL_REQUIRED: "Hãy nhập email",
