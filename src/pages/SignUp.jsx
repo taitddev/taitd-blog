@@ -6,14 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-import { useAuth } from "../context/AuthContext";
-
-import {
-  labelName,
-  placeholder,
-  errorMessage,
-  PASSWORD_MIN_LENGTH,
-} from "../utils/constants";
+import { signupRoute } from "../utils/apiRoute";
+import { errorMessages } from "../utils/messages";
+import { labelName, placeholder } from "../utils/properties";
+import { PASSWORD_MIN_LENGTH } from "../utils/constants";
 
 import Authentication from "./Authentication";
 import { Field } from "../components/field";
@@ -22,24 +18,23 @@ import { Input, InputPasswordToggle } from "../components/input/Index";
 import { Button } from "../components/button";
 
 const schema = yup.object({
-  fullname: yup.string().required(errorMessage.FULLNAME_REQUIRED),
+  fullname: yup.string().required(errorMessages.FULLNAME_REQUIRED),
   email: yup
     .string()
-    .email(errorMessage.EMAIL_FORMAT)
-    .required(errorMessage.EMAIL_REQUIRED),
+    .email(errorMessages.EMAIL_FORMAT)
+    .required(errorMessages.EMAIL_REQUIRED),
   password: yup
     .string()
-    .required(errorMessage.PASSWORD_REQUIRED)
-    .min(PASSWORD_MIN_LENGTH, errorMessage.PASSWORD_MIN_LENGTH)
+    .required(errorMessages.PASSWORD_REQUIRED)
+    .min(PASSWORD_MIN_LENGTH, errorMessages.PASSWORD_MIN_LENGTH)
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      errorMessage.PASSWORD_FORMAT
+      errorMessages.PASSWORD_FORMAT
     ),
 });
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
 
   const {
     control,
@@ -53,7 +48,7 @@ const SignUp = () => {
     if (!isValid) return;
 
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}auth/register`, values);
+      await axios.post(signupRoute, values);
     } catch (error) {
       console.log(error.message);
     }
@@ -82,7 +77,7 @@ const SignUp = () => {
         autoComplete="off"
       >
         <Field>
-          <Label htmlFor="fullname">{labelName.FULLNAME}</Label>
+          <Label htmlFor={labelName.FULLNAME}>{labelName.FULLNAME}</Label>
           <Input
             name="fullname"
             type="text"
@@ -92,7 +87,7 @@ const SignUp = () => {
         </Field>
 
         <Field>
-          <Label htmlFor="email">{labelName.EMAIL}</Label>
+          <Label htmlFor={labelName.EMAIL}>{labelName.EMAIL}</Label>
           <Input
             name="email"
             type="email"
@@ -102,7 +97,7 @@ const SignUp = () => {
         </Field>
 
         <Field>
-          <Label htmlFor="password">{labelName.PASSWORD}</Label>
+          <Label htmlFor={labelName.PASSWORD}>{labelName.PASSWORD}</Label>
           <InputPasswordToggle name="password" control={control} />
         </Field>
 

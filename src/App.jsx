@@ -18,19 +18,19 @@ const CategoryAddNew = React.lazy(() => {
   import("./module/category/CategoryAddNew");
 });
 
-import { path } from "./utils/constants";
+import { urlPath } from "./utils/urlPath";
 
 function App() {
   return (
-    <div>
+    <>
       <AuthContextProvider>
         <Suspense>
           <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/login" element={<LoginPage />}></Route>
-            <Route path="/signup" element={<SignUpPage />}></Route>
+            <Route path={urlPath.HOME} element={<HomePage />}></Route>
+            <Route path={urlPath.LOGIN} element={<LoginPage />}></Route>
+            <Route path={urlPath.SIGNUP} element={<SignUpPage />}></Route>
 
-            <Route element={<DashboardLayout />}>
+            {/* <Route element={<DashboardLayout />}>
               <Route path={path.DASHBOARD} element={<Dashboard />}></Route>
 
               <Route
@@ -38,15 +38,15 @@ function App() {
                 element={<CategoryManage />}
               ></Route>
 
-              {/* <Route
+              <Route
                 path={path.ADD_CATEGORY}
                 element={<CategoryAddNew />}
-              ></Route> */}
-            </Route>
+              ></Route>
+            </Route> */}
           </Routes>
         </Suspense>
       </AuthContextProvider>
-    </div>
+    </>
   );
 }
 

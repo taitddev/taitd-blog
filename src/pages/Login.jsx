@@ -1,32 +1,36 @@
 import React, { useEffect } from "react";
+import axios from "axios";
+
 import { useNavigate, NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 import { useAuth } from "../context/AuthContext";
 
-import { labelName, placeholder, errorMessage } from "../utils/constants";
+import { errorMessages } from "../utils/messages";
+import { labelName, placeholder } from "../utils/properties";
+import { loginRoute } from "../utils/apiRoute";
 
 import Authentication from "./Authentication";
 import { Field } from "../components/field";
 import { Label } from "../components/label";
 import { Input, InputPasswordToggle } from "../components/input/Index";
 import { Button } from "../components/button";
+import { documentTitle } from "../utils/constants";
 
 const schema = yup.object({
   email: yup
     .string()
-    .email(errorMessage.EMAIL_FORMAT)
-    .required(errorMessage.EMAIL_REQUIRED),
-  password: yup.string().required(errorMessage.PASSWORD_REQUIRED),
+    .email(errorMessages.EMAIL_FORMAT)
+    .required(errorMessages.EMAIL_REQUIRED),
+  password: yup.string().required(errorMessages.PASSWORD_REQUIRED),
 });
 
 const Login = () => {
   const navigate = useNavigate();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const {
     control,
@@ -38,10 +42,7 @@ const Login = () => {
     if (!isValid) return;
 
     try {
-      const res = await axios.post(
-        `${import.meta.env.VITE_API_URL}auth/login`,
-        values
-      );
+      const res = await axios.post(loginRoute, values);
       setUser(res.data.details);
       toast.success("Đăng nhập thành công!");
       navigate("/");
@@ -66,6 +67,12 @@ const Login = () => {
       });
     }
   }, [errors]);
+
+  // Set document title and redirect to home page if user is logged in
+  useEffect(() => {
+    document.title = documentTitle.LOGIN;
+    if (user.email) navigate("/");
+  }, [user]);
 
   return (
     <Authentication>

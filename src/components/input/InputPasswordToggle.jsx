@@ -3,6 +3,8 @@ import Input from "./Input";
 
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
+import { labelName, placeholder } from "../../utils/properties";
+
 const InputPasswordToggle = ({ name, control }) => {
   const [showPassword, setShowPassword] = useState(false);
   if (!control) return null;
@@ -13,7 +15,7 @@ const InputPasswordToggle = ({ name, control }) => {
         name={name}
         type={showPassword ? "text" : "password"}
         control={control}
-        placeholder="Enter your password"
+        placeholder={placeholder(labelName.PASSWORD)}
       >
         {showPassword ? (
           <AiOutlineEye

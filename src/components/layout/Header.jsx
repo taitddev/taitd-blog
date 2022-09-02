@@ -13,7 +13,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { urlPath } from "../../utils/constants";
+import { urlPath } from "../../utils/urlPath";
 
 import logo from "../../assets/logo.svg";
 import Button from "../button/Button";
