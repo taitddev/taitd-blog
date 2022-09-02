@@ -43,7 +43,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(loginRoute, values);
-      setUser(res.data.details);
+      setUser(res.data);
       toast.success("Đăng nhập thành công!");
       navigate("/");
     } catch (error) {
@@ -71,7 +71,7 @@ const Login = () => {
   // Set document title and redirect to home page if user is logged in
   useEffect(() => {
     document.title = documentTitle.LOGIN;
-    if (user.email) navigate("/");
+    if (user) navigate("/");
   }, [user]);
 
   return (

@@ -17,6 +17,7 @@ import { urlPath } from "../../utils/urlPath";
 
 import logo from "../../assets/logo.svg";
 import Button from "../button/Button";
+import Logo from "../logo/Logo";
 
 const navbarList = [
   {
@@ -187,7 +188,10 @@ const Header = () => {
       <div className="container">
         <div className="navbar">
           <NavLink to="/">
-            <img src={logo} alt="logo" className="logo" />
+            <div className="flex items-center gap-3">
+              <img src={logo} alt="logo" className="logo" />
+              <Logo className="text-4xl" />
+            </div>
           </NavLink>
 
           <ul className="navbar-list">

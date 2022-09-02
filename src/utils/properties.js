@@ -4,6 +4,8 @@ export const labelName = {
   EMAIL: "Email",
   PASSWORD: "Mật khẩu",
   PASSWORD_CONFIRM: "Xác nhận mật khẩu",
+  CATEGORY: "Tên danh mục",
+  SLUG: "Slug",
 };
 
 export const placeholder = (text) => {

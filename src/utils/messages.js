@@ -6,4 +6,5 @@ export const errorMessages = {
   PASSWORD_MIN_LENGTH: "Mật khẩu phải có ít nhất 8 ký tự",
   PASSWORD_FORMAT:
     "Mật khẩu phải có ít nhất 1 ký tự viết hoa, 1 ký tự viết thường, 1 số và 1 ký tự đặc biệt",
+  CATEGORY_REQUIRED: "Hãy nhập tên danh mục",
 };

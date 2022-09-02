@@ -1,7 +1,7 @@
 import React from "react";
 
 const CategoryManage = () => {
-  return <div>Test</div>;
+  return <div>CategoryManage</div>;
 };
 
 export default CategoryManage;

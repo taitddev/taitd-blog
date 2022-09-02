@@ -1,28 +1,35 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import { useForm } from "react-hook-form";
-import slugify from "slugify";
-
-import { toast } from "react-toastify";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import slugify from "slugify";
+import { toast } from "react-toastify";
+
+import { useAuth } from "../../context/AuthContext";
 
 import DashboardMainHeading from "../dashboard/DashboardMainHeading";
-import Field from "../../components/field/Field";
-import Group from "../../components/field/Group";
-import Label from "../../components/label/Label";
-import Input from "../../components/input/Input";
-import Radio from "../../components/radio/Radio";
-import Button from "../../components/button/Button";
 
-import { categoryStatus, documentTitle } from "../../utils/constants";
-import { checkUserIsAdmin } from "../../utils/utils";
+import { Field, Group } from "../../components/field";
+import Input from "../../components/input/Input";
+import { Label } from "../../components/label";
+import Radio from "../../components/radio/Radio";
+
+import { addCategoryRoute } from "../../utils/apiRoute";
+import { labelName, placeholder } from "../../utils/properties";
+import { Button } from "../../components/button";
+import { errorMessages } from "../../utils/messages";
+import { categoryStatus } from "../../utils/constants";
+
+import { checkUserIsAdmin } from "../../utils/commonFunction";
 
 const schema = yup.object({
-  name: yup.string().required("Hãy nhập tên chuyên mục"),
-  slug: yup.string().required("Hãy nhập slug"),
+  name: yup.string().required(errorMessages.CATEGORY_REQUIRED),
 });
 
 const CategoryAddNew = () => {
+  const { user } = useAuth();
+
   const {
     control,
     handleSubmit,
@@ -39,12 +46,34 @@ const CategoryAddNew = () => {
       createdAt: new Date(),
     },
   });
-
   const watchStatus = watch("status");
 
-  const { user } = useAuth();
+  const handleAddNewCategory = async (values) => {
+    if (!isValid) return;
 
-  const handleAddNewCategory = async (values) => {};
+    if (!checkUserIsAdmin(user)) return;
+
+    const newValues = { ...values };
+
+    newValues.slug = slugify(newValues.slug || newValues.name, {
+      lower: true,
+    });
+    newValues.status = Number(newValues.status);
+
+    try {
+      await axios.post(addCategoryRoute, newValues);
+      toast.success("Tạo mới danh mục thành công!");
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      reset({
+        name: "",
+        slug: "",
+        status: 1,
+        createdAt: new Date(),
+      });
+    }
+  };
 
   // Show toast if errors happen
   useEffect(() => {
@@ -58,67 +87,63 @@ const CategoryAddNew = () => {
     }
   }, [errors]);
 
-  useEffect(() => {
-    document.title = documentTitle.ADD_CATEGORY;
-  }, []);
-
   return (
     <>
-      <DashboardMainHeading title="Danh mục mới"></DashboardMainHeading>
-
+      <DashboardMainHeading title="Thêm danh mục" />
       <form onSubmit={handleSubmit(handleAddNewCategory)} autoComplete="off">
         <div className="form-layout">
           <Field>
-            <Label htmlFor="name">Tên danh mục</Label>
+            <Label htmlFor="name">{labelName.CATEGORY}</Label>
             <Input
               control={control}
               name="name"
-              placeholder="Nhập tên danh mục"
+              placeholder={placeholder(labelName.CATEGORY)}
             ></Input>
           </Field>
 
           <Field>
-            <Label htmlFor="slug">Slug</Label>
+            <Label htmlFor="slug">{labelName.SLUG}</Label>
             <Input
               control={control}
               name="slug"
-              placeholder="Nhập slug"
+              placeholder={placeholder(labelName.SLUG)}
             ></Input>
           </Field>
         </div>
 
         <div className="form-layout">
           <Field>
-            <Label>Trạng thái</Label>
-            <Group>
-              <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === categoryStatus.APPROVED}
-                value={categoryStatus.APPROVED}
-              >
-                Đã phê duyệt
-              </Radio>
-              <Radio
-                name="status"
-                control={control}
-                checked={Number(watchStatus) === categoryStatus.UNAPPROVED}
-                value={categoryStatus.UNAPPROVED}
-              >
-                Chưa phê duyệt
-              </Radio>
-            </Group>
+            <Label>Status</Label>
+            <div className="flex flex-wrap gap-x-5">
+              <Group>
+                <Radio
+                  name="status"
+                  control={control}
+                  checked={Number(watchStatus) === categoryStatus.APPROVED}
+                  value={categoryStatus.APPROVED}
+                >
+                  Đã phê duyệt
+                </Radio>
+                <Radio
+                  name="status"
+                  control={control}
+                  checked={Number(watchStatus) === categoryStatus.UNAPPROVED}
+                  value={categoryStatus.UNAPPROVED}
+                >
+                  Chưa phê duyệt
+                </Radio>
+              </Group>
+            </div>
           </Field>
         </div>
 
         <Button
-          kind="primary"
           type="submit"
-          maxWidth="200px"
-          disabled={isSubmitting ? 1 : 0}
-          loading={isSubmitting ? 1 : 0}
+          loading={isSubmitting}
+          disabled={isSubmitting}
+          className="min-w-[200px]"
         >
-          Tạo danh mục
+          Thêm danh mục
         </Button>
       </form>
     </>
