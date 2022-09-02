@@ -86,3 +86,12 @@
   width: 1px;
   white-space: nowrap;
 }
+
+::-webkit-scrollbar {
+  width: 0.3rem;
+  &-thumb {
+    background-color: #2ebac1;
+    width: 0.1rem;
+    border-radius: 1rem;
+  }
+}
