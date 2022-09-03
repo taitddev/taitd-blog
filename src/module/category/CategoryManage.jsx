@@ -70,7 +70,7 @@ const CategoryManage = () => {
           className="px-5 py-4 border border-gray-300 rounded-lg outline-none"
           onChange={handleInputFilter}
         />
-        <Button kind="ghost" height="60px" to={urlPath.ADD_CATEGORY}>
+        <Button kind="ghost" height="60px" to={urlPath.CATEGORY_ADD}>
           Tạo danh mục
         </Button>
       </div>

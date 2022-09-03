@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 import { useAuth } from "../../context/AuthContext";
+import { urlPath } from "../../utils/urlPath";
 
 import logo from "../../assets/logo.svg";
 import Button from "../../components/button/Button";
@@ -46,15 +47,15 @@ const DashboardHeader = () => {
   const { user } = useAuth();
   return (
     <DashboardHeaderStyles>
-      <NavLink to="/" className="logo">
+      <NavLink to={urlPath.HOME} className="logo">
         <img src={logo} alt="logo" className="logo" />
         <Logo className="text-4xl" />
       </NavLink>
       <div className="header-right">
-        <Button to="/manage/add-post" className="header-button" height="52px">
+        <Button to={urlPath.POST_ADD} className="header-button" height="52px">
           Viết bài
         </Button>
-        <Link to="/profile" className="header-avatar">
+        <Link to={urlPath.PROFILE} className="header-avatar">
           <img src={user?.image} alt="" />
         </Link>
       </div>

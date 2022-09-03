@@ -4,5 +4,12 @@ export const urlPath = {
   SIGNUP: "/signup",
   DASHBOARD: "/dashboard",
   CATEGORY_MANAGE: "/manage/category",
-  ADD_CATEGORY: "/manage/add-category",
+  CATEGORY_ADD: "/manage/add-category",
+  CATEGORY_UPDATE: "/manage/update-category",
+  CATEGORY_PAGE: "/category/:slug",
+  POST_MANAGE: "/manage/posts",
+  POST_ADD: "/manage/add-post",
+  POST_UPDATE: "/manage/update-post",
+  POST_PAGE: "/post/:slug",
+  PROFILE: "/profile",
 };

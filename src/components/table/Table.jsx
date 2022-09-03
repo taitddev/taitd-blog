@@ -17,6 +17,7 @@ const TableStyles = styled.div`
 
   tr {
     display: flex;
+    align-items: center;
     width: 100%;
   }
 
@@ -50,31 +51,6 @@ const TableStyles = styled.div`
     vertical-align: middle;
     white-space: nowrap;
   }
-
-  /* overflow-x: auto;
-  background-color: white;
-  border-radius: 10px;
-  table {
-    width: 100%;
-  }
-  thead {
-    background-color: #f7f7f8;
-  }
-  th,
-  td {
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-  th {
-    padding: 20px 30px;
-    font-weight: 600;
-    text-align: left;
-  }
-  td {
-    padding: 15px 30px;
-  }
-  tbody {
-  } */
 `;
 
 const Table = ({ children }) => {

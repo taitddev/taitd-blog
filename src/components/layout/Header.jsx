@@ -173,7 +173,6 @@ const HeaderStyles = styled.header`
 
 const Header = () => {
   const { user, setUser } = useAuth();
-  console.log("🚀 ~ file: Header.jsx ~ line 174 ~ Header ~ user", user);
 
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
@@ -187,7 +186,7 @@ const Header = () => {
     <HeaderStyles showMenu={showMenu}>
       <div className="container">
         <div className="navbar">
-          <NavLink to="/">
+          <NavLink to={urlPath.HOME}>
             <div className="flex items-center gap-3">
               <img src={logo} alt="logo" className="logo" />
               <Logo className="text-4xl" />
@@ -255,7 +254,7 @@ const Header = () => {
                     <li
                       className="menu-item"
                       onClick={() => {
-                        navigate("/dashboard");
+                        navigate(urlPath.DASHBOARD);
                       }}
                     >
                       <MdOutlineDashboard fontSize={20} />

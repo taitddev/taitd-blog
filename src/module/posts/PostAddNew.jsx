@@ -12,6 +12,7 @@ import DashboardMainHeading from "../dashboard/DashboardMainHeading";
 
 import { Field, Group } from "../../components/field";
 import Input from "../../components/input/Input";
+import ImageUpload from "../../components/input/ImageUpload";
 import { Label } from "../../components/label";
 import Radio from "../../components/radio/Radio";
 
@@ -27,7 +28,7 @@ const schema = yup.object({
   name: yup.string().required(errorMessages.CATEGORY_REQUIRED),
 });
 
-const CategoryAddNew = () => {
+const PostAddNew = () => {
   const { user } = useAuth();
 
   const {
@@ -89,16 +90,32 @@ const CategoryAddNew = () => {
 
   return (
     <>
-      <DashboardMainHeading title="Thêm danh mục" />
+      <DashboardMainHeading title="Tạo bài viết" />
       <form onSubmit={handleSubmit(handleAddNewCategory)} autoComplete="off">
         <div className="form-layout">
           <Field>
-            <Label htmlFor="name">{labelName.CATEGORY}</Label>
+            <Label htmlFor="name">{labelName.TITLE}</Label>
             <Input
               control={control}
               name="name"
-              placeholder={placeholder(labelName.CATEGORY)}
+              placeholder={placeholder(labelName.TITLE)}
             ></Input>
+          </Field>
+
+          <Field>
+            <Label htmlFor="slug">{labelName.SLUG}</Label>
+            <Input
+              control={control}
+              name="slug"
+              placeholder={placeholder(labelName.SLUG)}
+            ></Input>
+          </Field>
+        </div>
+
+        <div className="form-layout">
+          <Field>
+            <Label htmlFor="name">{labelName.IMAGE_UPLOAD}</Label>
+            <ImageUpload></ImageUpload>
           </Field>
 
           <Field>
@@ -150,4 +167,4 @@ const CategoryAddNew = () => {
   );
 };
 
-export default CategoryAddNew;
+export default PostAddNew;

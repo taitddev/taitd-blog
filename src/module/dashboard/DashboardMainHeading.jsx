@@ -6,6 +6,10 @@ const DashboardHeadingStyles = styled.div`
   display: flex;
   justify-content: space-between;
   color: black;
+
+  .clip {
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+  }
 `;
 
 const DashboardMainHeading = ({ title = "", description, children }) => {

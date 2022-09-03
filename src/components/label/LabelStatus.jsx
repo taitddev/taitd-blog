@@ -19,13 +19,13 @@ const LabelStatus = ({ children, type = "default" }) => {
   let styleClassName = "text-gray-500 bg-gray-100";
   switch (type) {
     case "success":
-      styleClassName = "text-green-500 bg-green-100";
+      styleClassName = "bg-green-100 text-green-700";
       break;
     case "warning":
-      styleClassName = "text-orange-500 bg-orange-100";
+      styleClassName = "bg-amber-100 text-amber-700";
       break;
     case "danger":
-      styleClassName = "text-red-500 bg-red-100";
+      styleClassName = "bg-red-100 text-red-700";
       break;
 
     default:
